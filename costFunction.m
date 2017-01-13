@@ -26,22 +26,22 @@ term1 = -y' * log(h);
 term2 = (1 - y') * log(1 - h);
 unregularized_cost = (1 / m) * (term1 - term2);
 
-theta(1) = 0; % Regularization peanalizes theta from being too large.
-lambda = 0;   % Default value for lambda
+theta(1) = 0;
+lambda = 0;
 sum_of_sqaures = theta' * theta;
 regularized_cost = (lambda / (2 * m)) * sum_of_sqaures;
 
 J = (unregularized_cost + regularized_cost);
 
 % Code to compute the gradient
-alpha = 0.01;
 diff  = h - y;
 diffs = repmat(diff, 1, size(X, 2)); % Build an (m x n) matrix
 delta = (1 / m) * sum(X.* diffs);    % Matrix multiplication on each X(i, j)
 
 % NOTE
-% Notice we're not computing reduced values for theta. That will be the job
-% of `fminunc`.
+% The Octave function fminunc will make all our reduction steps. Therefore, we
+% do not need to comopute a learning rate here like we did for linear
+% regression.
 
 grad = delta';
 
